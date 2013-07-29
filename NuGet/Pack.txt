@@ -1,0 +1,1 @@
+nuget pack -Symbols -Version x.x.x -Properties configuration=Release XXX.nuspec
