@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><WorkItemQuery Version="1"><Wiql>SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.TeamProject] = @project and [System.WorkItemType] = 'Task' and [System.AssignedTo] = @me and [System.Title] contains 'Merge' and [System.State] in ('Proposed', 'Resolved', 'Active') ORDER BY [System.Id] </Wiql></WorkItemQuery>
