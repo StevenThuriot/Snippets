@@ -1,0 +1,21 @@
+run_program("/sbin/busybox", "mount", "/system");
+
+delete(
+	"/system/app/VisualizationWallpapers.apk",
+	"/system/app/HoloSpiralWallpaper.apk",
+	"/system/app/NoiseField.apk",
+	"/system/app/LiveWallpapers.apk",
+	"/system/app/MagicSmokeWallpapers.apk",
+	"/system/app/Galaxy4.apk",
+	"/system/app/Browser.apk",
+	"/system/app/DashClock.apk",
+	"/system/app/DocumentsUI.apk",
+	"/system/app/Email.apk", 
+	"/system/app/Exchange2.apk",
+	"/system/app/GalleryGoogle.apk",
+	"/system/app/Launcher3.apk",
+	"/system/priv-app/Mms.apk",
+	"/system/app/GenieWidget.apk"
+);
+
+run_program("/sbin/busybox", "umount", "/system");
