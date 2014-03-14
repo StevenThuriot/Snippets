@@ -87,6 +87,6 @@ foreach( $file in $foundFiles )
 		}
 	}
 	
-	$content -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $fileVersion `
-			 -replace 'AssemblyInformationalVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $informationalVersion | Set-Content "$file"
+	$content -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $afv `
+			 -replace 'AssemblyInformationalVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $aiv | Set-Content "$file"
 }
