@@ -72,7 +72,7 @@ foreach( $file in $foundFiles )
 			
 			
 			$afv = "$fileMajor.$fileMinor.$env:APPVEYOR_BUILD_NUMBER"
-			$aiv = "$fileMajor.$fileMinor.-$env:APPVEYOR_REPO_SCM" + ($env:APPVEYOR_REPO_COMMIT).Substring(0, 8)
+			$aiv = "$afv-$env:APPVEYOR_REPO_SCM" + ($env:APPVEYOR_REPO_COMMIT).Substring(0, 8)
 			
 			Add-AppveyorMessage -Message "•	Specific AssemblyVersion found, using that instead: $fileMajor.$fileMinor.$fileBuild.$fileRevision ."
 			Add-AppveyorMessage -Message "	○	Patched File Version: $afv"
