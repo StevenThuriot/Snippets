@@ -4,5 +4,5 @@ git init
 git add .
 git commit -m "Initial Commit"
 
-git remote add origin https://github.com/thuriot/thuriot.github.io.git
+git remote add origin <git master repo uri>
 git push -u --force origin master
