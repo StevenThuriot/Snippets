@@ -1,0 +1,109 @@
+From 46e0b621bee9155da81bac72cc2f3b8a454a73b2 Mon Sep 17 00:00:00 2001
+From: Steven Thuriot <steven@thuriot.be>
+Date: Mon, 1 Sep 2014 18:00:00 +0200
+Subject: [PATCH] patch for heroku
+
+---
+ Procfile                       |  1 +
+ app.json                       | 21 +++++++++++++++++++++
+ config.example.js => config.js | 25 +++++++++++++++++--------
+ package.json                   |  1 +
+ 4 files changed, 40 insertions(+), 8 deletions(-)
+ create mode 100644 Procfile
+ create mode 100644 app.json
+ rename config.example.js => config.js (86%)
+
+diff --git a/Procfile b/Procfile
+new file mode 100644
+index 0000000..6a53386
+--- /dev/null
++++ b/Procfile
+@@ -0,0 +1 @@
++web: node index.js --production
+diff --git a/app.json b/app.json
+new file mode 100644
+index 0000000..660c89b
+--- /dev/null
++++ b/app.json
+@@ -0,0 +1,21 @@
++{
++  "name": "Ghost",
++  "description": "Just a blogging platform",
++  "logo": "https://raw.githubusercontent.com/TryGhost/Ghost/master/core/client/assets/img/large.png",
++  "repository": "https://github.com/thuriot/ghost",
++  "success_url": "/ghost",
++  "addons": [
++    "heroku-postgresql",
++    "mandrill"
++  ],
++  "env": {
++    "HEROKU_URL": {
++      "description": "The URL of this Heroku app.",
++      "value": "http://YOURAPPNAME.herokuapp.com"
++    },
++    "NODE_ENV": {
++      "description": "Leave this as-is.",
++      "value": "production"
++    }
++  }
++}
+diff --git a/config.example.js b/config.js
+similarity index 86%
+rename from config.example.js
+rename to config.js
+index 888511c..834d26a 100644
+--- a/config.example.js
++++ b/config.js
+@@ -48,20 +48,29 @@ config = {
+     // When running Ghost in the wild, use the production environment
+     // Configure your URL and mail settings here
+     production: {
+-        url: 'http://my-ghost-blog.com',
+-        mail: {},
++        url: process.env.HEROKU_URL,
++        mail: {
++            transport: 'SMTP',
++            host: 'smtp.mandrillapp.com',
++            options: {
++                service: 'Mandrill',
++                auth: {
++                    user: process.env.MANDRILL_USERNAME,
++                    pass: process.env.MANDRILL_APIKEY
++                }
++            }
++        },
++        fileStorage: false,
+         database: {
+-            client: 'sqlite3',
+-            connection: {
+-                filename: path.join(__dirname, '/content/data/ghost.db')
+-            },
++            client: 'postgres',
++            connection: process.env.DATABASE_URL,
+             debug: false
+         },
+         server: {
+             // Host to be passed to node's `net.Server#listen()`
+-            host: '127.0.0.1',
++            host: '0.0.0.0',
+             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
+-            port: '2368'
++            port: process.env.PORT
+         }
+     },
+ 
+diff --git a/package.json b/package.json
+index a61733c..55e190c 100644
+--- a/package.json
++++ b/package.json
+@@ -31,6 +31,7 @@
+     },
+     "engineStrict": true,
+     "dependencies": {
++        "pg": "latest",
+         "bcryptjs": "0.7.10",
+         "body-parser": "1.6.3",
+         "bookshelf": "0.7.6",
+-- 
+1.8.3.msysgit.0
+
