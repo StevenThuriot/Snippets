@@ -1,0 +1,23 @@
+--default-track === subtitle
+--atracks 		=== Audio
+
+# first, get audio track info so we know which one to keep
+mkvmerge -i input.mkv
+
+
+File 'input.mkv': container: Matroska
+Track ID 0: video (MPEG-4p10/AVC/h.264)
+Track ID 1: audio (AAC)
+Track ID 2: audio (AAC)        				   <----------- for example, let's keep this audio track
+Track ID 3: subtitles (SubStationAlpha)
+Track ID 4: subtitles (SubStationAlpha)        <----------- and this subtitle track
+Chapters: 3 entries
+
+mkvmerge -o "H:\Anime\___Temp\file.mkv" --subtitle-tracks 4 --default-track 4 --atracks 2 "H:\Anime\Series\originalfile.mkv"
+
+
+
+batch (browse to folder first)
+==============================
+
+for %i in (*) do "D:\Dropbox\Tools\mkvtoolnix\mkvmerge.exe" -o "H:\Anime\___Temp\%i" --subtitle-tracks 4 --default-track 4 --atracks 2 "%i"
