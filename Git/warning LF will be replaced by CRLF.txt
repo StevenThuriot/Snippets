@@ -1,0 +1,6 @@
+This might happen if you change core.autocrlf config variable (if I understand your problem correctly).
+
+If you are at clean state, i.e. just after commit, and you don't have uncomitted changes, forced re-checkout and removing index should do the trick:
+
+$ rm .git/index
+$ git reset --hard HEAD
