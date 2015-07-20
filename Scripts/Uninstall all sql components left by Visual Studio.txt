@@ -1,0 +1,1 @@
+wmic product where "name like 'microsoft sql server%'" call uninstall /nointeractive
